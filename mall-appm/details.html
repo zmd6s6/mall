@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"
+		content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="stylesheet" href="./css/reset.css">
+	<link rel="stylesheet" href="./css/details.css">
+	<link rel="stylesheet" type="text/css" href="./lib/swiper/css/swiper-bundle.min.css" />
+	<title></title>
+</head>
+
+<body>
+	<div class="header">
+		<a href="#" class="back" onclick="history.back()"><img src="./img/details/03arrow.jpg" alt=""></a>
+		<div class="word">
+			<a href="#" class="left">商品</a><a href="#" class="right">详情</a>
+		</div>
+		<div class="right-pic">
+			<a href="./index.html"><img src="./img/details/01home.jpg" alt=""></a>
+			<a href="#"><img src="./img/details/02share.jpg" alt=""></a>
+		</div>
+	</div>
+	<div class="commodity-details">
+
+
+	</div>
+	<div class="choose">
+		<a href="#" class="num-choose" href="#">
+			<span>规格数量选择</span>
+			<img src="./img/details/images/rightarr_03.jpg" alt="">
+		</a>
+		<a href="#" class="num-choose" href="#">
+			<span>一个促销
+				<span class="discount">120款爆品满3件8折</span>
+			</span>
+			<img src="./img/details/images/rightarr_03.jpg" alt="">
+		</a>
+		<a href="#" class="num-choose" href="#">
+			<span>积分：<span class="integral">购买最高可得59积分</span>
+		</a>
+		<a href="#">
+			<span>服务：</span>
+			<div class="serve">
+				<span>30天无忧退换货</span>
+				<span>48小时快速退款</span>
+				<span>满88元免邮费 </span>
+			</div>
+			<img src="./img/details/images/rightarr_03.jpg" alt="">
+		</a>
+	</div>
+	<div class="reviews">
+		<a class="tittle">
+			<span>用户评价：(<span class="num">536</span>)</span>
+			<span><span>99.1%</span>好评 <img src="./img/details/images/rightarr_03.jpg" alt=""></span>
+
+
+		</a>
+		<div class="one-review">
+			<div class="user">
+				<img class="avatar vertical-align" src="./img/details/user.jpg" alt="">
+				<span class="id vertical-align">x****n</span>
+				<img class="level vertical-align" src="./img/details/level.jpg" alt="">
+				<img class="star vertical-align" src="./img/details/star.jpg" alt="">
+				<img class="star vertical-align" src="./img/details/star.jpg" alt="">
+				<img class="star vertical-align" src="./img/details/star.jpg" alt="">
+				<img class="star vertical-align" src="./img/details/star.jpg" alt="">
+				<img class="star vertical-align" src="./img/details/star.jpg" alt="">
+
+
+			</div>
+			<div class="content">
+				<div class="details">
+					<span class="time">2017.12.4 10：20 </span>
+					<span class="bought">灰紫：1.8M</span>
+				</div>
+				<div class="comment">质感相当不错，很舒服，本人比较喜欢</div>
+				<div class="user-pic"><img src="./img/details/userpic.jpg" alt=""></div>
+
+			</div>
+		</div>
+	</div>
+	<div class="product-details">
+		<div class="tittle">商品详情</div>
+		<img class="first-pic" src="./img/details/details1.jpg" alt="">
+		<div class="slogan1">
+			<div>窗边响起一阵蝉鸣</div>
+			<div>转身抱紧被子，夏日午后，正当酣眠</div>
+		</div>
+		<img class="sec-img" src="./img/details/details2.jpg" alt="">
+		<div class="slogan2">
+			<div class="up">一被多用</div>
+			<div>可以做春凉被的四件套</div>
+		</div>
+		<div class="pic">
+			<img class="third-img" src="./img/details/details3.jpg" alt="">
+			<img class="forth-img" src="./img/details/details4.jpg" alt="">
+		</div>
+
+	</div>
+	<div class="footer">
+		<img src="./img/details/bottom1.jpg" alt="">
+		<img src="./img/details/bottom2.jpg" alt="">
+		<img class="oput " src="./img/details/bottom3.jpg" alt="">
+		<a href="#" class="shopping-car">加入购物车</a>
+		<a href="#" class="buy-now">立即购买</a>
+	</div>
+	<a class="totop">
+		<img src="./img/details/top.png" alt="">
+	</a>
+	<div class="specification-selection">
+		<div class="top">
+			<img src="./img/details/details4.jpg" alt="">
+			<div class="text">
+				<div class="price">价格：￥599
+				</div>
+				<div>请选择规格属性</div>
+			</div>
+
+		</div>
+		<div class="list">
+			<div class="item color">
+				<div>颜色</div>
+				<div>
+					<div class="button">灰紫</div>
+					<div class="button">浅灰色</div>
+					<div class="button">浅灰色</div>
+				</div>
+			</div>
+			<div class="item size">
+				<div>尺寸</div>
+				<div>
+					<div class="button">灰紫</div>
+					<div class="button">浅灰色</div>
+
+
+				</div>
+			</div>
+			<div class="item num-control">
+				<div>数量</div>
+				<div class="num">
+					<div class="min">-</div>
+					<input type="number" value="1">
+					<div class="plus">+</div>
+				</div>
+			</div>
+		</div>
+		<a href="#" class="ok ">确认</a>
+		<img class="close" src="./img/details/x.png" alt="">
+
+
+	</div>
+	<script>
+		// 弹出和收回
+		var oBuy = document.querySelector('.footer .buy-now');
+		var oAddCart = document.querySelector('.shopping-car');
+		var oDetails = document.querySelector('.specification-selection');
+		oAddCart.addEventListener('click', function () {
+			oDetails.style.bottom = "0";
+		});
+		oBuy.addEventListener('click', function () {
+			oDetails.style.bottom = "0";
+		});
+		var oClose = document.querySelector('.close');
+		oClose.addEventListener('click', function () {
+			oDetails.style.bottom = "-200vw";
+		});
+		var oOk = document.querySelector('.ok');
+		oOk.addEventListener('click', function () {
+			oDetails.style.bottom = "-200vw";
+		});
+		// 数量加减
+		var oMin = document.querySelector('.num-control .min');
+		oMin.addEventListener('click', function () {
+			var oNum = document.querySelector('.num-control input');
+			if (oNum.value > 1) { oNum.value--; }
+
+		});
+		var oPlus = document.querySelector('.num-control .plus');
+		oPlus.addEventListener('click', function () {
+
+			var oNum = document.querySelector('.num-control input');
+			oNum.value++;
+		});
+		var oColor = document.querySelectorAll('.specification-selection .color .button');
+		oColor.forEach(function (item) {
+			item.addEventListener('click', function () {
+				oColor.forEach(function (item) {
+					item.classList.remove('checked');
+				})
+				this.classList.add('checked');
+			})
+		})
+		var oSize = document.querySelectorAll('.specification-selection .size .button');
+		oSize.forEach(function (item) {
+			item.addEventListener('click', function () {
+				oSize.forEach(function (item) {
+					item.classList.remove('checked');
+				})
+				this.classList.add('checked');
+			})
+		})
+
+
+	</script>
+
+	<script src="./js/axios.min.js"></script>
+	<script src="./js/axios.config.js"></script>
+	<script src="./js/utils.js"></script>
+	<script src="./lib/swiper/js/swiper-bundle.min.js"></script>
+
+	<script>
+		var oCommo = document.querySelector('.commodity-details');
+		var oPut = document.querySelector('.oput');
+		var id = params('id');
+		var token;
+		axios.get('/goods/detail', { params: { id: id } })
+			.then(function (res) {
+				if (res.status) {
+					var params = res.data.slider.slice(0);
+					var arr = params.split(',');
+					var comm =
+						`<div class="swiper banner-box ">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide">
+								<img src="${arr[0]}">
+							</div>
+							<div class="swiper-slide">
+								<img src="${arr[1]}">
+							</div>
+						</div>
+						<!-- 如果需要分页器 -->
+						<div class="swiper-pagination"></div>
+
+						<!-- 如果需要导航按钮 -->
+						<div class="swiper-button-prev"></div>
+						<div class="swiper-button-next"></div>
+
+					</div>
+					<div class="word">
+						<div class="right">
+							<div class="name">全棉色织绗缝多用件套</div>
+							<div class="details">夏季凉被，冬季暖套，四季可用</div>
+							<div class="price">￥599</div>
+						</div>
+						<div class="left">
+							<div class="number">469</div>
+							<div class="illustrate">用户评价</div>
+							<a class="seemore" href="#">查看</a>
+						</div>
+					</div>`;
+
+					oCommo.insertAdjacentHTML('beforeend', comm);
+
+				}
+				//轮播图
+				var mySwiper = new Swiper('.banner-box', {
+					loop: true, // 循环模式选项
+					// 如果需要分页器
+					pagination: {
+						el: '.swiper-pagination',
+					},
+
+					// 如果需要前进后退按钮
+					navigation: {
+						nextEl: '.swiper-button-next',
+						prevEl: '.swiper-button-prev',
+					},
+					on: {
+						init: function (swiper) {
+							slide = this.slides.eq(0);
+							slide.addClass('ani-slide');
+						},
+						transitionStart: function () {
+							for (i = 0; i < this.slides.length; i++) {
+								slide = this.slides.eq(i);
+								slide.removeClass('ani-slide');
+							}
+						},
+						transitionEnd: function () {
+							slide = this.slides.eq(this.activeIndex);
+							slide.addClass('ani-slide');
+
+						},
+					}
+				});
+			});
+
+		var oSta = sessionStorage.token == undefined ? false : true;
+		if (oSta) {
+			axios.get('/goods/detail', { params: { id: id, uid: sessionStorage.id } })
+				.then(function (res) {
+					if (res.data.isCollected) {
+						oPut.classList.add('active');
+					}
+				});
+		}
+
+		oPut.onclick = function () {
+			if (oSta) {
+				axios.get('/collection/list', { params: { goods_id: id } })
+					.then(function (res) {
+						oPut.classList.toggle('active');
+						if (oPut.classList.contains('active') == false) {
+							axios.post('/collection/remove', { id: id })
+								.then(function () {
+								})
+						} else {
+							axios.post('/collection/add', { id: id })
+								.then(function () {
+								})
+						}
+					})
+			} else {
+				alert('您没有登入');
+			}
+		}
+		var oYes = document.querySelector('.ok');
+		var oNum = document.querySelector('input[type="number"]');
+
+		oYes.onclick = function () {
+			var num = oNum.value;
+			axios.post('/cart/add', { gid: id, num: num })
+				.then(function (res) {
+				})
+		}
+
+
+
+	</script>
+</body>
+
+</html>

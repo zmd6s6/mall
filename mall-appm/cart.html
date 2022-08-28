@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>购物车</title>
+	<meta name="viewport"
+		content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="stylesheet" href="./css/reset.css">
+	<link rel="stylesheet" href="./css/cart.css">
+</head>
+
+<body>
+	<header>
+		<span class="title">购物车</span>
+	</header>
+	<ul class="cart-list">
+
+
+	</ul>
+	<div class="guess">
+		<div class="title">猜你喜欢</div>
+		<ul class="guess_list">
+			<li>
+				<a href="#">
+					<img src="./img/cart/likegase.jpg" alt="">
+					<div class="name">色织水洗棉格纹四件套</div>
+					<div class="price">￥219</div>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img src="./img/cart/likegase.jpg" alt="">
+					<div class="name">色织水洗棉格纹四件套</div>
+					<div class="price">￥219</div>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img src="./img/cart/likegase.jpg" alt="">
+					<div class="name">色织水洗棉格纹四件套</div>
+					<div class="price">￥219</div>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img src="./img/cart/likegase.jpg" alt="">
+					<div class="name">色织水洗棉格纹四件套</div>
+					<div class="price">￥219</div>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img src="./img/cart/likegase.jpg" alt="">
+					<div class="name">色织水洗棉格纹四件套</div>
+					<div class="price">￥219</div>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img src="./img/cart/likegase.jpg" alt="">
+					<div class="name">色织水洗棉格纹四件套</div>
+					<div class="price">￥219</div>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img src="./img/cart/likegase.jpg" alt="">
+					<div class="name">色织水洗棉格纹四件套</div>
+					<div class="price">￥219</div>
+				</a>
+			</li>
+		</ul>
+	</div>
+	<nav>
+		<div class="total">
+			<div>
+				<span class="select-box"><input type="checkbox">
+				</span>
+				<span class="all_select">全选</span>
+			</div>
+			<div>
+				<span class="price">￥0</span>
+				<span class="buy_button"><a href="#" class="make">下单</a></span>
+			</div>
+
+		</div>
+
+		<ul class="nav">
+			<li>
+				<a href="./index.html">
+					<img src="./img/cart/nav1.png" alt="">
+					<div class="name">首页</div>
+				</a>
+			</li>
+			<li>
+				<a href="./preferred.html">
+					<img src="./img/cart/nav2.png" alt="">
+					<div class="name">优选</div>
+				</a>
+			</li>
+			<li>
+				<a href="./category.html">
+					<img src="./img/cart/nav3.png" alt="">
+					<div class="name">分类</div>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img src="./img/cart/nav4.png" alt="">
+					<div class="name">购物车</div>
+				</a>
+			</li>
+			<li>
+				<a href="user.html">
+					<img src="./img/cart/nav5.png" alt="">
+					<div class="name">我的</div>
+				</a>
+			</li>
+		</ul>
+	</nav>
+	<div class="to_top"><img src="./img/cart/top.png" alt=""></div>
+
+	<script src="./js/axios.min.js"></script>
+	<script src="./js/axios.config.js"></script>
+	<script src="./js/utils.js"></script>
+
+	<script>
+		var temp;
+		var oCart = document.querySelector('.cart-list');
+		axios.get('/cart/list', { pagesize: 10 })
+			.then(function (res) {
+				res.data.forEach(function (item) {
+					var lis = `<li class="relative" >
+			<div class="select-box"><input type="checkbox" data-id=${item.goods_id} ></div>
+
+			<a href="#"><img class="photo" src="${item.img}" alt=""></a>
+			<div class="info">
+				<div class="top">
+					<div class="name">${item.name}</div>
+					<div class="style">雾霾蓝</div>
+				</div>
+				<div class="bottom">
+					<span class="price">￥${item.price}</span>
+					<div class="num" data-id=${item.id}>
+						<span class="left">-</span>
+						<form action=""><input type="text" value="${item.goods_num}"></form>
+						<span class="right">+</span>
+					</div>
+				</div>
+			</div>
+			<img class="remove" src="./img/cart/remove.png" alt="">
+		</li>
+
+`;
+					oCart.insertAdjacentHTML('beforeend', lis);
+
+					// console.log(temp);
+
+
+
+
+
+				});
+
+
+				var oCheckboxList = document.querySelectorAll(".relative .select-box input");
+				var oCheckAll = document.querySelector(".total .select-box input");
+				var oLis = document.querySelectorAll(".relative");
+
+				var oTotal = document.querySelector(".total .price");
+				var oRem = document.querySelectorAll('.relative .remove');
+				var oNum = document.querySelectorAll(".num");
+				var temp;
+				//数量的增减
+				oNum.forEach(function (item) {
+					item.onclick = function (e) {
+
+						var oGet = item.querySelector('input');
+						var left = e.target.matches('.left');
+						var right = e.target.matches('.right');
+						temp = item.dataset.id
+
+						if (left && oGet.value > 0) {
+							oGet.value--;
+							axios.post('/cart/decrease', { id: temp, num: 1 }).then(function (res) {
+
+
+							});
+						}
+						if (right) {
+							oGet.value++;
+							axios.post('/cart/increase', { id: temp, num: 1 }).then(function (res) {
+
+
+							});
+						}
+						sumPrice();
+					}
+				});
+
+				//点击删除，把数量置为零，并删除li
+				oCart.onclick = function (event) {
+					var isValid = event.target.matches('.remove');
+					var oNum = this.querySelector('.num');
+					var temp1 = oNum.dataset.id;
+					if (isValid) {
+
+						var val = event.target.querySelector('.num input[type="text"]');
+						// console.log(val);
+						// val.value = 0;
+
+						event.target.parentElement.remove();
+						oLis = document.querySelectorAll(".relative");
+						sumPrice();
+						axios.post('/cart/remove', { id: temp1 })
+							.then(function () {
+
+							})
+					}
+				}
+
+
+
+
+				//点击删除，把数量置为零，并删除li
+				// oCart.forEach(function (item) {
+				// 	item.addEventListener('click', function (e) {
+				// 		if (e.target.matches('.remove')) {
+				// 			item.querySelector('.num input').value = 0;
+				// 			item.remove();
+
+				// 		}
+				// 		axios.post('/cart/remove', { id: temp })
+				// 			.then(function () {
+
+				// 			})
+
+				// 	});
+
+
+				// });
+				//点击全选，进行全选按钮
+				oCheckAll.addEventListener('change', function () {
+					var current = this.checked;
+					oCheckboxList.forEach(function (item) {
+						item.checked = current;
+					})
+					sumPrice();
+
+				});
+
+				//点击复选框 ，价格随之修改
+				oCheckboxList.forEach(function (item) {
+
+					item.addEventListener('change', function () {
+						sumPrice();
+						var cAll = document.querySelectorAll(".relative .select-box input[type='checkbox']:checked").length;
+						oCheckAll.checked = (oCheckboxList.length === cAll);
+
+					});
+				});
+				var total_aff;
+
+				//sumPrice() 价格计算函数
+				function sumPrice() {
+					var totalPrice = 0;
+					oLis.forEach(function (item) {
+						var oPrice = item.querySelector(".price");
+						var oCheckbox = item.querySelector(".select-box input");
+						var oNum_inp = item.querySelector('.num input');
+						var page = oPrice.innerHTML.slice(1);
+						var price = page * oNum_inp.value;
+						if (oCheckbox.checked) {
+							totalPrice += price;
+							total_aff = totalPrice;
+
+						};
+					});
+					oTotal.innerHTML = '￥' + totalPrice;
+				}
+				var oMake = document.querySelector('.make');
+				var arr = [];
+
+
+				oMake.onclick = function () {
+					var modo;
+					oCheckboxList.forEach(function (item) {
+						var item_id = item.dataset.id;
+						if (item.checked) {
+							arr.push(item_id);
+							modo = true;
+						}
+					});
+
+
+
+					if (modo === true) {
+						location.assign(`./affirm.html?gid=${arr}&seita=${total_aff}`);
+					} else {
+						alert('您还没有选择商品');
+					}
+				}
+
+
+			});
+
+
+
+
+	</script>
+</body>
+
+</html>

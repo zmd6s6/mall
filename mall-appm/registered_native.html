@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>注册</title>
+	<meta name="viewport"
+		content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="stylesheet" href="./css/reset.css">
+	<link rel="stylesheet" href="./css/registered.css">
+</head>
+
+<body>
+	<img class="logo" src="./img/login/logo.png" alt="">
+	<form class="reg_form" action="">
+		<div><input id="input_name" type="text" placeholder="请输入用户名 "></div>
+		<div class="sex">
+			<label class="radio_name">性别：</label>
+			<label class="boy" for="boy"><input id="boy" type="radio" name="sex" value="1" checked>男</label>
+			<label for="girl"><input id="girl" type="radio" name="sex" value="0">女</label>
+		</div>
+		<div><input class="pwd" type="password" name="password" placeholder="密码"></div>
+		<div><input class="pwd_again" type="password" name="password_again" placeholder="请再次输入密码"></div>
+		<div class="phone_num-box relative">
+			<select name="prefix" id="">
+				<option value="01">+86</option>
+				<option value="02">+886</option>
+				<option value="03">+852</option>
+			</select>
+			<input class="phone_num" type="text" name="phone_num" placeholder="手机号码">
+		</div>
+		<div class="ver_code-box"><input class="ver_code" type="text" name="ver_code" placeholder="验证码"><span
+				class="get_code">获取验证码</span></div>
+		<button id="btn_reg" type="button">注册</button>
+	</form>
+	<div class="agreement">注册即代表同意《本家网络服务协议》</div>
+	<script>
+		var oUsername = document.querySelector("#input_name");
+		var oPassword = document.querySelector(".pwd");
+		var oAgain = document.querySelector(".pwd_again");
+		var oPhonenum = document.querySelector(".phone_num");
+		var oCode = document.querySelector(".ver_code");
+		var oReg = document.querySelector("#btn_reg");
+
+
+		oUsername.addEventListener('change', function () {
+			//提取value
+			var username = oUsername.value;
+			var isValid = /\w{3,}/.test(username);
+			if (isValid) {
+				this.style.borderColor = "green";
+			} else {
+				this.style.borderColor = "#c55a5c";
+				alert('账号至少三位字符！');
+
+			}
+			//校验标记
+			this.validate = isValid;
+		});
+		var temp;
+		oPassword.addEventListener('change', function () {
+			//提取value
+			var password = oPassword.value;
+			temp = password;
+			var isValid = /\d{3,}/.test(password);
+			if (isValid) {
+				this.style.borderColor = "green";
+
+			} else {
+				this.style.borderColor = "#c55a5c";
+				alert('密码至少三位数字！');
+			}
+			//校验标记
+			this.validate = isValid;
+		});
+		oAgain.addEventListener('change', function () {
+			var again = oAgain.value;
+			if (temp == '') {
+				alert('请在上方输入密码');
+			} else if (temp == again) {
+				this.style.borderColor = "green";
+			} else {
+				alert('两次密码输入不相符');
+				this.style.borderColor = "#c55a5c";
+
+			}
+		});
+		oPhonenum.addEventListener('change', function () {
+			var num = oPhonenum.value;
+			var isValid = /^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/.test(num);
+			if (!isValid) {
+				alert('手机号码不正确');
+
+			} else {
+				this.style.borderColor = "green";
+
+			}
+
+			this.validate = isValid;
+
+		});
+		oCode.addEventListener('change', function () {
+			var code = oCode.value;
+			var isValid = /\d{6}/.test(code);
+			if (!isValid) {
+				this.style.borderColor = "#c55a5c";
+				alert('验证码不对');
+			} else {
+				this.style.borderColor = "green";
+
+			}
+			this.validate = isValid;
+
+		})
+
+		oReg.addEventListener('click', function () {
+			//提取value
+			var name = oUsername.value;
+			var pwd = oPassword.value;
+			var again = oAgain.value;
+			var pnum = oPhonenum.value;
+			var code = oCode.value;
+			//校验所有表单
+			var all_valid = oUsername.validate && oPassword.validate && oCode.validate && oPhonenum.validate;
+			if (!all_valid) {
+				alert('表单校验失败,重新填写！');
+				return;
+			}
+
+
+			//1.创建AJAX对象
+			var ajax = new XMLHttpRequest();
+			//2.初始化请求
+			ajax.open('POST', 'http://localhost:3002/user/register');
+			// ajax.open('POST', '/user/login');
+			// 3.设置请求头
+			ajax.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+			//4.发送
+			ajax.send(`username=${name}&password=${pwd}&phonenum=${pnum}&code=${code}`);
+			//4.事件绑定
+			ajax.onreadystatechange = function () {
+				if (ajax.readyState === 4) {
+					if (ajax.status >= 200 && ajax.status < 300) {
+						alert('注册成功');
+						location.assign("./login.html");
+					}
+				}
+			}
+		});
+
+	</script>
+</body>
+
+</html>

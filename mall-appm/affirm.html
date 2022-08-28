@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>确认订单</title>
+	<meta name="viewport"
+		content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="stylesheet" href="./css/reset.css">
+	<link rel="stylesheet" href="./css/affirm.css">
+</head>
+
+<body>
+	<div class="header">
+		<img class="arrow-left" src="./img/affirm/arrow.png" onclick="history.back()" alt="">
+		<span class="title">确认订单</span>
+	</div>
+	<div class="bck">
+		<div class="send-box">
+			<div class="send">
+				寄送至
+			</div>
+			<div class="icon-box">
+				<a href="./address_list.html?redirect=confilm-order"><img class="icon_arrow"
+						src="./img/affirm/999_12.png" alt=""></a>
+			</div>
+		</div>
+	</div>
+	<div class="address">
+
+	</div>
+	<div class="bck bambo">
+
+	</div>
+	<div class="bck">
+		<div class="item item1">
+			<div class="">
+				商品合计
+			</div>
+
+		</div>
+		<div class="item item2">
+			<div class="">
+				运费
+			</div>
+			<div class="item-price">
+				￥0.00
+			</div>
+		</div>
+		<div class="item item3">
+			<div class="">
+				优惠券：<span>未选择</span>
+			</div>
+			<div class="frame">
+				0张
+			</div>
+		</div>
+		<div class="item item4">
+			<div class="">
+				备注：
+			</div>
+			<div class="remark">
+				填写备注
+			</div>
+		</div>
+	</div>
+	<div class="nav">
+		<div class="nav-price">
+
+		</div>
+		<div class="orders">
+			结账
+		</div>
+	</div>
+	<script src="./js/axios.min.js"></script>
+	<script src="./js/axios.config.js"></script>
+	<script src="./js/utils.js"></script>
+	<script>
+		var oBambo = document.querySelector('.bambo');
+		var oItem1 = document.querySelector('.item1');
+		var oItem2 = document.querySelector('.nav-price');
+		var oAddress = document.querySelector('.address');
+		var oArrow = document.querySelector('.icon_arrow');
+		var str = params('gid');
+		var temp = str.split(',');
+		var seita = params('seita');
+		var arrs = [];
+		var set2;
+		var set3;
+		var oAid;
+		axios.post('/order/settle', { goods: temp })
+			.then(function (res) {
+				res.data.goods.forEach(function (item) {
+					//商品
+					var set = `
+				<div class="goods-box">
+			<img src="${item.img_md}" alt="">
+			<div class="goods-text">
+				<div class="goods-name">
+					${item.name}
+				</div>
+				<div class="details">
+					神秘灰 x<span id="">${item.goods_num}</span>
+				</div>
+				<div class="price">
+					￥${item.price}
+				</div>
+			</div>
+		</div>
+			
+			`;
+
+					oBambo.insertAdjacentHTML('beforeend', set);
+
+
+
+					set2 = `
+					<div class="item-price">
+				￥${seita}
+			</div>`;
+					set3 = `
+			合计：￥<span>${seita}</span>元`;
+					var obj = {};
+					obj.id = item.id;
+					obj.num = item.goods_num;
+					arrs.push(obj);
+				});
+
+
+
+				oItem1.insertAdjacentHTML('beforeend', set2);
+				oItem2.insertAdjacentHTML('beforeend', set3);
+				if (res.data.address) {
+
+					var mobo = `
+					<img src="./img/affirm/affirm_03.jpg" alt="">
+		<div class="massage">
+			<div class="name">
+				${res.data.address.name}
+			</div>
+			<div class="tell">
+				<span>${res.data.address.tel}</span>
+				<div class="default">
+					${isDefault = 1 ? '默认' : ''}
+				</div>
+			</div>
+		</div>
+		<div class="site">
+        ${res.data.address.province_name}${res.data.address.city_name}${res.data.address.county_name}${res.data.address.town_name}
+		</div>
+					`;
+					oAid = res.data.address.id;
+					console.log(oAid);
+
+					oAddress.insertAdjacentHTML('beforeend', mobo);
+
+
+				} else if (!res.data.address && !sessionStorage.aid) {
+					var mobo = `
+					<img src="./img/affirm/affirm_03.jpg" alt="">
+		<div class="massage_none">
+			<p style="width:90vw;heigth:25vw;text-align:center; padding:6vw 0;">请选择地址</p>
+		</div>
+		
+	
+					`;
+					oAddress.insertAdjacentHTML('beforeend', mobo);
+					var oMassage_none = document.querySelector('.massage_none');
+					oMassage_none.onclick = function () {
+						location.assign('./address_list.html?redirect=confilm-order');
+
+					}
+
+
+				} else {
+					axios.get('/address', { params: { id: sessionStorage.aid } })
+						.then(function (res) {
+							if (res) {
+
+								var mobo = `
+								<img src="./img/affirm/affirm_03.jpg" alt="">
+					<div class="massage">
+						<div class="name">
+							${res.data.name}
+						</div>
+						<div class="tell">
+							<span>${res.data.tel}</span>
+						</div>
+					</div>
+					<div class="site">
+					${res.data.province_name}${res.data.city_name}${res.data.county_name}${res.data.town_name}
+					</div>
+								`;
+								oAid = res.data.address.id;
+
+								oAddress.insertAdjacentHTML('beforeend', mobo);
+
+							}
+
+
+						})
+
+
+				}
+				var oOrder = document.querySelector('.orders');
+				oOrder.onclick = function () {
+					axios.post('/order/create', { payment: seita, addressId: oAid, goodsList: arrs })
+						.then(function (res) {
+							if (res.status) {
+								// location.assign('./pay.html');
+							}
+
+						})
+
+				}
+
+
+			});
+
+	</script>
+</body>
+
+</html>

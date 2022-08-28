@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>登入</title>
+	<meta name="viewport"
+		content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="stylesheet" href="./css/reset.css">
+	<link rel="stylesheet" href="./css/login.css">
+</head>
+
+<body>
+	<img class="logo" src="./img/login/logo.png" alt="">
+	<form class="login_form" action="">
+		<input id="username" type="text" placeholder="用户名 ">
+		<input id="password" type="password" placeholder="请输入密码">
+		<button id="login" type="button">登入</button>
+	</form>
+	<div class="relative helper">
+		<a href="#">忘记密码?</a>
+		<a href="#">注册</a>
+		<div class="other_way">其他登入方式</div>
+	</div>
+	<ul class="other_ways">
+		<li><a href="#"><img src="./img/login/login_way1.png" alt="">
+				<div>微信</div>
+			</a></li>
+		<li><a href="#"><img src="./img/login/login_way2.png" alt="">
+				<div>QQ</div>
+			</a></li>
+		<li><a href="#"><img src="./img/login/login_way3.png" alt="">
+				<div>微博</div>
+			</a></li>
+	</ul>
+	<script>
+		//查找元素
+		var oUsername = document.querySelector('#username');
+		var oPassword = document.querySelector('#password');
+		var oLogin = document.querySelector('#login');
+
+
+		oUsername.addEventListener('change', function () {
+			//提取value
+			var username = oUsername.value;
+			var isValid = /\w{3,}/.test(username);
+			if (isValid) {
+				this.style.borderColor = "green";
+			} else {
+				this.style.borderColor = "#c55a5c";
+				alert('账号至少三位字符！');
+
+			}
+			//校验标记
+			this.validate = isValid;
+		});
+		oPassword.addEventListener('change', function () {
+			//提取value
+			var password = oPassword.value;
+			var isValid = /\d{3,}/.test(password);
+			if (isValid) {
+				this.style.borderColor = "green";
+			} else {
+				this.style.borderColor = "#c55a5c";
+				alert('密码至少三位数字！');
+
+			}
+			//校验标记
+			this.validate = isValid;
+		});
+		oLogin.addEventListener('click', function () {
+			//提取value
+			var name = oUsername.value;
+			var pwd = oPassword.value;
+			//校验所有表单
+			var all_valid = oUsername.validate && oPassword.validate;
+			if (!all_valid) {
+				alert('表单校验失败,重新填写！');
+				return;
+			}
+
+
+			//1.创建AJAX对象
+			var ajax = new XMLHttpRequest();
+			//2.初始化请求
+			ajax.open('POST', 'http://localhost:3002/user/login');
+			// ajax.open('POST', '/user/login');
+			// 3.设置请求头
+			ajax.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+			//4.发送
+			ajax.send(`username=${name}&password=${pwd}`);
+			//5.事件绑定
+			ajax.addEventListener('readystatechange', function () {
+				if (ajax.readyState === 4) {
+					var res = JSON.parse(ajax.responseText);
+					console.log(res);
+					if (res.status) {
+						location.replace("./index.html");
+
+					} else {
+						alert(res.msg);
+					}
+				}
+			});
+
+		});
+
+	</script>
+</body>
+
+</html>

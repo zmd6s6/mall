@@ -1,0 +1,161 @@
+body {
+	background-color: #f2f2f2;
+}
+
+.header {
+	background-color: white;
+	position: relative;
+	background-color: white;
+	padding: 3.73vw 2.8vw;
+	text-align: center;
+	font-size: 3.73vw;
+	color: #555555;
+	border-bottom: 0.1vw solid #dddddd;
+}
+
+.header .arrow-left {
+	position: absolute;
+	left: 2.8vw;
+	width: 2.67vw;
+	height: 4.67vw;
+}
+
+.send-box {
+	background-color: white;
+	width: 96vw;
+	height: 11.6vw;
+	line-height: 11.6vw;
+	margin: 0 auto;
+	display: flex;
+	justify-content: space-between;
+}
+
+.send {
+	font-size: 3.72vw;
+}
+
+.bck {
+	background-color: white;
+	margin-bottom: 3vw;
+}
+
+.icon {
+	width: 2.53vw;
+	vertical-align: middle;
+}
+
+.address img {
+	width: 100%;
+}
+
+.address {
+	margin: 0 auto;
+	width: 96vw;
+	background-color: white;
+	margin-bottom: 3vw;
+}
+
+.massage {
+	width: 85vw;
+	margin: 0 auto;
+	padding-top: 4.27vw;
+	font-size: 3.73vw;
+	display: flex;
+	justify-content: space-between;
+}
+
+.site {
+	width: 85vw;
+	margin: 0 auto;
+	padding-top: 5.2vw;
+	font-size: 3.2vw;
+	padding-bottom: 3vw;
+}
+
+.tell {
+	width: 34.8vw;
+	display: flex;
+	justify-content: space-between;
+}
+
+.default {
+	width: 9.47vw;
+	height: 3.8vw;
+	line-height: 3.8vw;
+	text-align: center;
+	border: 0.2vw solid #c55a5c;
+	border-radius: 1vw;
+}
+
+.goods-box {
+	padding-top: 3vw;
+	width: 94vw;
+	margin: 0 auto;
+	display: flex;
+	justify-content: space-between;
+	border-bottom: 0.1vw solid #f2f2f2;
+}
+
+.goods-box img {
+	width: 21.47vw;
+	height: 21.47vw;
+}
+
+.goods-text {
+	padding-right: 15vw;
+}
+
+.goods-name {
+	color: black;
+	font-size: 3.47vw;
+	padding-bottom: 4.13vw;
+}
+
+.details {
+	font-size: 3.2vw;
+	padding-bottom: 5.47vw;
+}
+
+.price {
+	font-size: 3.2vw;
+	color: #999999;
+	padding-bottom: 3vw;
+}
+
+.item {
+	display: flex;
+	justify-content: space-between;
+	margin: 0 auto;
+	width: 94vw;
+	height: 14vw;
+	line-height: 14vw;
+	border-bottom: 0.1vw solid #f2f2f2;
+	font-size: 3.47vw;
+}
+
+.item-price {
+	color: #c55a5c;
+}
+
+.nav {
+	position: fixed;
+	bottom: 0;
+	display: flex;
+	justify-content: space-between;
+	background-color: white;
+	height: 12.5vw;
+	line-height: 12.5vw;
+	font-size: 4vw;
+}
+
+.nav-price {
+	width: 70vw;
+	padding-left: 3vw;
+}
+
+.orders {
+	background-color: #c55a5c;
+	color: white;
+	width: 30vw;
+	text-align: center;
+}

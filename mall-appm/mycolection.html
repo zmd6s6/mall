@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"
+		content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="stylesheet" href="./css/reset.css">
+	<link rel="stylesheet" href="./css/mycolection.css">
+	<title></title>
+</head>
+
+<body>
+	<div class="header">
+		<div class="tittle">我的收藏</div>
+		<a href="#"><img src="./img/details/03arrow.jpg" alt=""></a>
+	</div>
+	<div class="content">
+
+
+	</div>
+	<script src="./js/axios.min.js"></script>
+	<script src="./js/axios.config.js"></script>
+	<script src="./js/utils.js"></script>
+	<script>
+		var oContent = document.querySelector('.content');
+		axios.get('/collection/list', { pagesize: 12 })
+			.then(function (res) {
+				if (res.status) {
+					res.data.forEach(function (item) {
+						var colect = `
+					<div class="item">
+			<img src="${item.img_md}" alt="">
+			<div class="text">
+				<div class="name">${item.name}</div>
+				<div class="detail">${item.hotPoint}</div>
+				<div class="price">￥${item.price}</div>
+			</div>
+		</div>
+					`;
+						oContent.insertAdjacentHTML('beforeend', colect);
+					})
+				}
+
+			});
+
+	</script>
+</body>
+
+</html>

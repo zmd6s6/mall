@@ -1,0 +1,120 @@
+body {
+	background-color: #eeeeee;
+	min-height: 100vh;
+}
+
+.header {
+	background-color: #fff;
+	text-align: center;
+	padding: 5.6vw 0;
+	/* background-color: #fafafa; */
+	border-bottom: 1px solid #eeeeee;
+}
+
+.header img {
+	width: 2.67vw;
+	height: 4.67vw;
+	position: absolute;
+	top: 6vw;
+	left: 3vw;
+}
+
+.nav {
+	background-color: #fff;
+	display: flex;
+	justify-content: space-evenly;
+	padding: 2.7vw 0 2.93vw;
+	position: relative;
+}
+
+.nav .line {
+	position: absolute;
+	bottom: 0vw;
+	left: 43.5vw;
+	width: 11.87vw;
+	height: 0.53vw;
+	background-color: #c55a5c;
+}
+.content .item{
+	width: 94.67vw;
+	box-sizing: border-box;
+	display: inline-block;
+	margin: 4vw 2.67vw 0;
+	padding: 3.07vw 3.73vw;
+	background-color: #fff;
+	
+}
+.content .item .top{
+	display: flex;
+	justify-content: space-between;
+	padding-bottom: 2.67vw;
+	border-bottom: #eeeeee 1px solid;
+}
+.content .item .commodity .comd{
+	padding-top: 3.2vw;
+	display: flex;
+	justify-content: space-between;
+	border-bottom: #eee 1px solid;
+}
+.content .item .commodity img{
+	width: 22.7vw;
+	height: 22vw;
+	
+}
+.content .item .text{
+	width: 62vw;
+	
+	
+	
+}
+.content .item .name{
+	font-size: 3.47vw;
+	color: #333333;
+	/* 仅限webkit内核使用 */
+	display: -webkit-box;
+	/* 几行开始截断 */
+	-webkit-line-clamp: 2;
+	line-clamp: 2;
+	-webkit-box-orient: vertical;
+	box-orient: vertical;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	text-overflow: unset;
+	/* 对超长数字/超长英文断行 */
+	word-break: break-all;
+}
+.content .item .detail{
+	padding: 3.47vw 0 0.5vw;
+	display: flex;
+	justify-content: space-between;
+	font-size: 3.2vw;
+}
+.content .item .information{
+	color: #aaaaaa;
+}
+.content .item .num{
+	padding: 2.5vw 0 0vw 5vw;
+}
+.content .total{
+	padding: 2vw 0 4vw;
+	display: flex;
+	justify-content: flex-end;
+}
+.total .red{
+	color: #c55a5c;
+}
+.content .buttons{
+	display: flex;
+	justify-content: flex-end;
+}
+.content .button{
+	background-color: #fff;
+	padding: 1.47vw 3.87vw;
+	border-radius: 2.93vw;
+	border: solid 1px #aaaaaa;
+	margin-left: 2.8vw;
+}
+.content .buttons .red-border{
+	color: #c55a5c;
+	border: solid 1px #c55a5c;
+}

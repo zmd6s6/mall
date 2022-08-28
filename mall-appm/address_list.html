@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>收货地址</title>
+	<meta name="viewport"
+		content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="stylesheet" href="./css/reset.css">
+	<link rel="stylesheet" href="./css/address.css">
+</head>
+
+<body>
+	<header>
+		<a><img onclick="history.back()" class="arrow-left" src="./img/address/arrow.png" alt=""></a>
+		<span class="title">收货地址</span>
+	</header>
+	<ul class="address-list">
+
+
+
+	</ul>
+	<a href="./address_add.html" class="add-button">
+		新建收货地址
+	</a>
+	<script src="./js/axios.min.js"></script>
+	<script src="./js/axios.config.js"></script>
+	<script src="./js/utils.js"></script>
+	<script>
+		var params = params('redirect');
+		//查找元素
+		var oAddressList = document.querySelector(".address-list");
+		//获取收货地址列表
+		axios.get('/address/list', { pageSize: 10, pageIndex: 1 })
+			.then(function (res) {
+				if (res.status) {
+					res.data.forEach(element => {
+						var address = `
+						<li>
+			<div class="info" data-id=${element.id}>
+				<div class="top">
+					<span class="name">${element.name}</span>
+					<span class="tel">${element.tel}</span>
+					${element.isDefault === 1 ? '<div class="default">默认</div>' : ''}
+				</div>
+				<div class="detail">
+					${element.province_name}${element.city_name}${element.county_name}${element.street}${element.town_name}
+				</div>
+			</div>
+			<a href="./address_edit.html?id=${element.id}"><img class="edit" src="./img/address/edit.png" alt=""></a>
+			<img class="remove" data-id='${element.id}'  src="./img/address/remove.png" alt="">
+		</li>`;
+						oAddressList.insertAdjacentHTML('beforeend', address);
+
+
+					});
+
+				}
+
+				if (params) {
+					var oInfos = document.querySelectorAll('.info');
+					oInfos.forEach(function (item) {
+						item.onclick = function () {
+							sessionStorage.aid = item.dataset.id;
+							history.back();
+						}
+					})
+				}
+
+			})
+
+	</script>
+	<script>
+		oAddressList.addEventListener('click', function (e) {
+
+			var isValid = e.target.matches('.remove');
+			if (!isValid) { return; }
+			var isConfirm = confirm('确定要删除此收货地址吗？');
+			if (isConfirm) {
+				var id = e.target.dataset.id;
+				axios.post('/address/remove', { id: id })
+					.then(function (res) {
+						if (res.status) {
+							e.target.closest('li').remove();
+						} else {
+							alert(res.msg);
+						}
+
+					});
+			}
+
+		});
+
+	</script>
+</body>
+
+</html>

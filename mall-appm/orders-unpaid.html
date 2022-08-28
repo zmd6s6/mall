@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"
+		content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="stylesheet" href="./css/reset.css">
+	<link rel="stylesheet" href="./css/orders-unpaid.css">
+	<title></title>
+</head>
+
+<body>
+	<div class="header">
+		<div class="tittle">我的订单</div>
+		<a href="./user.html"><img src="./img/search_result/arrow.png" alt=""></a>
+	</div>
+	<div class="nav">
+		<a href="./orders-unpaid.html?status=0">待付款</a>
+		<a href="./orders-unpaid.html?status=3">待发货</a>
+		<a href="./orders-unpaid.html?status=4">待收货</a>
+		<a href="./orders-unpaid.html?status=5">待评价</a>
+		<a href="./orders-unpaid.html?status=all">全部All</a>
+
+	</div>
+	<div class="content">
+
+	</div>
+	<script src="./js/axios.min.js"></script>
+	<script src="./js/axios.config.js"></script>
+	<script src="./js/utils.js"></script>
+	<script>
+		var oContent = document.querySelector('.content');
+		var params = params('status');
+		var flag = false;
+		axios.get('/order/list', { params: { status: params, pageSize: 10 } })
+			.then(function (res) {
+				if (res) {
+
+					var outFn = res.data.length;
+					for (var i = 0; i < outFn; i++) {
+						var sum = 0;
+						var oOut = `
+		<a class="item" href="#">
+			<div class="top">
+				<span class="unpaid">${res.data[i].status}</span>
+				<span class="time">${res.data[i].create_time}</span>
+			</div>
+			<div class="commodity">
+			
+				
+			</div >
+			<div class="total">
+				<span>共 <span class="red">${res.data[i].goodsList.length}</span> 件商品 合计：<span class="red">￥${res.data[i].payment}</span></span>
+			</div>
+			<div class="buttons">
+				<button class="button">取消订单</button>
+				<button class="red-border button">立即付款</button>
+			</div>
+		</a >
+		`;
+						oContent.insertAdjacentHTML('beforeend', oOut);
+						if (oContent.children[0] != '') {
+							var inFn = res.data[i].goodsList.length;
+							for (var j = 0; j < inFn; j++) {
+								var oIn = `
+											<div class="comd">
+									<img src="${res.data[i].goodsList[j].img_md}" alt="">
+									<div class="text">
+										<div class="name">${res.data[i].goodsList[j].name}</div>
+										<div class="detail">
+											<span class="information">容量30L</span>
+											<div>
+												<span class="price">￥${res.data[i].goodsList[j].goods_price}</span>
+												<div class="num">x${res.data[i].goodsList[j].goods_num}</div>
+											</div>
+										</div>
+									</div>
+								</div>`;
+								var oComm = oContent.children[i].querySelector('.commodity');
+								oComm.insertAdjacentHTML('beforeend', oIn);
+							}
+
+						}
+					}
+				}
+
+			});
+
+		var oNavs = document.querySelectorAll('.nav a');
+		var srr = ['0', '3', '4', '5', 'all'];
+		var text = 0;
+		console.log(params);
+		for (var i = 0; i < 5; i++) {
+
+			if (params != srr[i]) {
+				text++;
+			} else {
+				var x = text;
+			}
+		}
+		console.log(x);
+		oNavs.forEach(function (item) {
+			item.style.border = 'none';
+		})
+		oNavs[x].style.borderBottom = "0.2375rem solid #c55a5c";
+
+
+
+
+
+
+
+
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"
+		content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="stylesheet" href="./css/reset.css">
+	<link rel="stylesheet" href="./css/sort.css">
+	<title></title>
+</head>
+
+<body>
+	<form class="relative">
+		<input class="search" type="text" placeholder="搜索商品,共10000款好物">
+		<img src="./img/sort/macipt.png" alt="">
+	</form>
+	<!-- 侧边栏 -->
+	<div class="list_box">
+		<ul class="left" data-id="1">
+
+		</ul>
+		<!-- 衣服分类 -->
+		<div class="right">
+			<img class="right_top" src="./img/sort/sort_pic_1.jpg" alt="">
+			<div class="title relative">女士分类</div>
+			<ul class="goods">
+
+			</ul>
+		</div>
+	</div>
+	<nav>
+		<ul class="nav">
+			<li>
+				<a href="./index.html">
+					<img src="./img/sort/nav1.png" alt="">
+					<div class="zh">首页</div>
+				</a>
+			</li>
+			<li>
+				<a href="./preferred.html">
+					<img src="./img/sort/nav2.png" alt="">
+					<div class="zh">优选</div>
+				</a>
+			</li>
+			<li>
+				<a href="./sort.html">
+					<img src="./img/sort/nav3.png" alt="">
+					<div class="zh">分类</div>
+				</a>
+			</li>
+			<li>
+				<a href="./cart.html">
+					<img src="./img/sort/nav4.png" alt="">
+					<div class="zh">购物车</div>
+				</a>
+			</li>
+			<li>
+				<a href="./user.html">
+					<img src="./img/sort/nav5.png" alt="">
+					<div class="zh">我的</div>
+				</a>
+			</li>
+
+		</ul>
+	</nav>
+	<script src="./js/axios.min.js"></script>
+	<script src="./js/axios.config.js"></script>
+	<script>
+		//查找元素
+		var oLeft = document.querySelector('.left');
+		var oGoods = document.querySelector('.goods');
+		var temp;
+		//获取左侧元素
+		axios.get('/category/sub', { params: { pId: 1 } })
+			.then(function (res) {
+				if (res.status) {
+					// console.log(res.data);
+					res.data.forEach(function (item) {
+						var sort = `<li class="item" data_id="${item.id}">${item.name}</li>`;
+
+						oLeft.insertAdjacentHTML('beforeend', sort);
+						temp = item.id;
+					})
+				}
+
+			})
+
+
+		axios.get('/category/sub', { params: { pId: temp } })
+			.then(function (res) {
+				if (res.status) {
+					res.data.forEach(function (item) {
+						console.log(item);
+						var good = `
+								<li>
+									<img src="${item.img}" alt="">
+									<div class="name">${item.name}</div>
+								</li>`;
+						oGoods.insertAdjacentHTML('beforeend', good);
+
+					})
+				}
+
+			})
+
+
+
+
+		// var oLeftList = document.querySelector('.left');
+		// var oRight = document.querySelector('.right');
+		// console.dir(oLeftList);
+		// var pid = oLeftList.dataset.id;
+		// console.log(pid);
+		// axios.get('/category/sub', { params: { pId: pid } })
+		// 	.then(function (res) {
+		// 		if (res.status) {
+		// 			var img = `<img class="right_top" src="${res.data.img}" alt="">`;
+		// 			oRight.insertAdjacentHTML('beforeend', img);
+		// 			res.data.forEach(function (item) {
+
+		// 				var sort = `<li class="item" data_id="${item.id}">${item.name}</li>`;
+
+		// 				oLeftList.insertAdjacentHTML('beforeend', sort);
+		// 			});
+		// 		}
+		// 	});
+		// var oGoods = document.querySelector('.goods');
+		// // var id=item.dataset.id;
+		// // console.log(id);
+		// axios.get('/category/sub', { params: { pId: 2 } })
+		// 	.then(function (res) {
+		// 		if (res.status) {
+		// 			res.data.forEach(function (item) {
+		// 				var good = `
+		// 						<li>
+		// 							<img src="${item.img}" alt="">
+		// 							<div class="name">${item.name}</div>
+		// 						</li>`;
+		// 				oGoods.insertAdjacentHTML('beforeend', good);
+		// 			});
+		// 		}
+
+		// 	});
+
+
+	</script>
+</body>
+
+</html>

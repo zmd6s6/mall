@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>添加地址</title>
+	<meta name="viewport"
+		content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="stylesheet" href="./css/reset.css">
+	<link rel="stylesheet" href="./css/address_add.css">
+</head>
+
+<body>
+	<header>
+		<a><img onclick="history.back()" class=" arrow-left" src="./img/address/arrow.png" alt=""></a>
+		<span class="title">添加地址</span>
+	</header>
+	<form class="address_form">
+		<div>
+			<label>收货人：</label><input id="consignee" placeholder="请输入收货人姓名" pattern="/.+/" date-error="请输入收货人姓名"
+				name="name" type="text">
+		</div>
+		<div>
+			<label>手机号码：</label><input id="phone number" placeholder="请输入收货人手机号码"
+				pattern="/^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/"
+				data-error="请输入合法的手机号码" name="tel" type="text">
+		</div>
+		<div>
+			<label>所在地区：</label>
+			<span class="selections">
+				<select name="province_id" id="">
+					<option value="01">山东省</option>
+
+				</select>
+				<select name="city_id" id="">
+
+				</select>
+				<select name="county_id" id="">
+
+				</select>
+				<select name="town_id" id="">
+
+				</select>
+			</span>
+		</div>
+		<div>
+			<label for="">详细地址：</label>
+			<textarea spellcheck="false" pattern="/.+/" data-error="请输入门派、楼层等" placeholder="门牌、楼层等"
+				name="street"></textarea>
+		</div>
+		<div>
+			<label for="zip_code">邮政编码：</label><input id="zip_code" pattern="/^[1-9]\d{5}$/" data-error="请输入正确的邮政编码"
+				placeholder="请输入邮政编码" name="code" type="text">
+		</div>
+		<div class="default"><label>默认地址：</label>
+			<input class="select-box" type="checkbox" name="isDefault">
+		</div>
+		<button type="button" class="save-button">
+			添加
+		</button>
+	</form>
+
+	<script src="./js/axios.min.js"></script>
+	<script src="./js/axios.config.js"></script>
+	<script>
+		var oProvince = document.querySelector('select[name="province_id"]');
+		var oCity = document.querySelector('select[name="city_id"]');
+		var oCounty = document.querySelector('select[name="county_id"]');
+		var oTown = document.querySelector('select[name="town_id"]');
+
+
+		axios.get('/pcct/province')
+			.then(function (res) {
+				if (res.status) {
+					var html = '';
+					res.data.forEach(function (item) {
+						html += `<option value="${item.province_id}">${item.name}</option> `;
+
+					});
+					oProvince.innerHTML = html;
+					//触发省的change事件
+					oProvince.trigger('change');
+				}
+
+			});
+
+
+		//监听省，获取市
+		oProvince.addEventListener('change', function () {
+			//获取选中省份的PID
+			var pid = this.value;
+			//获取市
+			axios.get('/pcct/city', {
+				params: { id: pid }
+			}).then(function (res) {
+				if (res.status) {
+					var html = '';
+					res.data.forEach(function (item) {
+						html += `<option value="${item.city_id}">${item.name}</option> `;
+
+					});
+					oCity.innerHTML = html;
+					//触发市的change事件
+					oCity.trigger('change');
+				}
+			});
+		});
+		//监听省，获取市
+		oCity.addEventListener('change', function () {
+			//获取选中省份的PID
+			var cityid = this.value;
+			//获取市
+			axios.get('/pcct/county', {
+				params: { id: cityid }
+			}).then(function (res) {
+				if (res.status) {
+					var html = '';
+					res.data.forEach(function (item) {
+						html += `<option value="${item.county_id}">${item.name}</option> `;
+
+					});
+					oCounty.innerHTML = html;
+					//触发区的change事件
+					oCounty.trigger('change');
+				}
+			});
+		});
+		oCounty.addEventListener('change', function () {
+			//获取选中省份的PID
+			var cid = this.value;
+			//获取市
+			axios.get('/pcct/town', {
+				params: { id: cid }
+			}).then(function (res) {
+				if (res.status) {
+					var html = '';
+					res.data.forEach(function (item) {
+						html += `<option value="${item.town_id}">${item.name}</option> `;
+
+					});
+					oTown.innerHTML = html;
+					//触发街道的change事件
+					oTown.trigger('change');
+				}
+			});
+		});
+
+	</script>
+	<script src="./js/utils.js"></script>
+	<script>
+
+		//添加地址
+		var oAddButton = document.querySelector(".save-button");
+		var oForm = document.querySelector('.address_form');
+		oAddButton.addEventListener('click', function () {
+			//表单验证...（老师不会写，没讲）
+			//批量获取表单元素的value
+			var data = serialize(oForm);
+			//fix默认地址
+			data.isDefault = data.isDefault ? 1 : 0;
+			//ajax
+			axios.post('/address/add', data)
+				.then(function (res) {
+					if (res.status) {
+						location.replace('./address_list.html');
+
+					} else {
+						console.log(res.mag);
+					}
+
+				});
+
+
+
+
+
+		})
+	</script>
+
+</body>
+
+</html>

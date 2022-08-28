@@ -1,0 +1,155 @@
+form {
+	border-bottom: 0.13vw solid #ededed;
+}
+
+.search {
+	margin: 2.67vw 4vw 1.6vw 4vw;
+	width: 92vw;
+	height: 8.53vw;
+	padding: 2.27vw;
+	box-sizing: border-box;
+	text-align: center;
+	background-color: #ededed;
+	outline: 0;
+	border: none;
+	border-radius: 1vw;
+}
+
+.relative img {
+	max-width: 100%;
+	width: 4.13vw;
+	height: 4.13vw;
+	position: absolute;
+	top: 5vw;
+	left: 20vw;
+}
+
+/* 侧边栏 */
+.list_box {
+	display: flex;
+}
+
+.left {
+	width: 21.73vw;
+	/* height: 47.33vw; */
+	border-right: 0.13vw solid #ededed;
+	margin-bottom: 8vw;
+
+}
+
+.left .item {
+	font-size: 3.47vw;
+	color: #555555;
+	width: 7vw;
+	padding: 0 6.47vw 0 7.47vw;
+	margin: 8.53vw 0 0 0;
+	border-left: 1vw solid transparent
+}
+
+.left .item:hover {
+	color: #ad4452;
+	border-left: 1vw solid #ad4452;
+
+}
+
+/* .left .item:nth-child(1) {
+	color: #ad4452;
+	/* border-left: 0.8vw solid #ad4452; 
+} */
+
+/* .left .item:nth-child(1) span{
+	border-left: 0.8vw solid ;
+	width: 0.3vw;
+	height: 6vw;
+	position: absolute;
+	left: 0;
+	top: 7.5vw;
+	background-color: #ad4452;
+} */
+/* 衣服分类 */
+.right {
+	text-align: center;
+	font-size: 3.47vw;
+	color: #555555;
+}
+
+.right .title::before {
+	content: '';
+	border: 0.14vw solid #cecece;
+	width: 5.33vw;
+	height: 0;
+	position: absolute;
+	top: 2vw;
+	left: 23vw;
+	color: #555555;
+}
+
+.right .title::after {
+	content: '';
+	border: 0.14vw solid #cecece;
+	width: 5.33vw;
+	height: 0;
+	position: absolute;
+	top: 2vw;
+	right: 23vw;
+	color: #555555;
+}
+
+.right_top {
+	width: 70.4vw;
+	max-width: 100%;
+	padding: 4vw 3.33vw 5.6vw 4vw;
+	border-radius: 8vw;
+}
+
+.right ul img {
+	max-width: 100%;
+	width: 14.8vw;
+}
+
+.right ul {
+	display: flex;
+	flex-wrap: wrap;
+	padding: 0 7.73vw 0 8.13vw;
+	font-size: 3.2vw;
+	justify-content: space-between;
+}
+
+.right li {
+
+	padding: 5.4vw 2vw;
+}
+
+nav {
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	border-top: 0.4vw solid #eaeaea;
+}
+
+nav .nav {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	padding: 3.2vw 2vw 1vw 2vw;
+	background-color: #fff;
+}
+
+nav .nav a {
+	font-family: MicrosoftYaHeiUI;
+	font-size: 2.4vw;
+	color: #555555;
+}
+
+nav .nav a:visited {
+	color: #555555;
+}
+
+nav .nav li {
+	text-align: center;
+	width: 10vw;
+}
+
+nav .nav li img {
+	width: 5.6vw;
+}

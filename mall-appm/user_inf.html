@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>账户资料</title>
+	<meta name="viewport"
+		content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="stylesheet" href="./css/reset.css">
+	<link rel="stylesheet" href="./css/user_inf.css">
+</head>
+
+<body>
+	<header>
+		<img class="arrow-left" src="./img/user_inf/arrow.png" alt="">
+		<span class="title">账户资料</span>
+	</header>
+	<form class="inf_form">
+		<div class="avator">
+			<label class="photo relative" for="uploader">
+				<img src="./img/user_inf/avatar.jpg" alt="">
+			</label>
+			<input type="file" id="uploader" class="photo_up">
+
+		</div>
+		<div class="item">
+			<label for="name">昵称</label><input type="text" name="nickname" id="name" value="" />
+		</div>
+		<div class="item">
+			<label>性别</label>
+			<div>
+				<label class="select_helper" for="boy">
+					<input type="radio" checked name="sex" value="男" />
+					<span>男</span>
+				</label>
+				<label class="select_helper" for="girl">
+					<input type="radio" name="sex" value="女" />
+					<span>女</span>
+				</label>
+			</div>
+		</div>
+		<div class="item">
+			<label for="phone_num">手机</label>
+			<input type="tel" name="tel" />
+		</div>
+		<button type="button" class="save-btn">保存修改</button>
+	</form>
+	<script src="./js/axios.min.js"></script>
+	<script src="./js/axios.config.js"></script>
+	<script src="./js/utils.js"></script>
+	<script>
+		var oPhoto = document.querySelector('.photo img');
+		var oNickname = document.querySelector('input[name="nickname"]');
+		var oSex = document.querySelectorAll('input[name="sex"]');
+		var oTel = document.querySelector('input[name="tel"]');
+		// 获取账户资料
+		axios.get('/user/info')
+			.then(function (res) {
+				if (res.status) {
+					//还原数据
+					oPhoto.setAttribute('src', res.data.avatar);
+					oNickname.value = res.data.nickname;
+					oSex.forEach(function (item) {
+						if (item.value === res.data.sex) {
+							item.checked = true;
+						} else {
+							item.checked = false;
+						}
+					});
+					oTel.value = res.data.tel;
+				}
+			});
+		// 头像上传
+		var oUploader = document.getElementById('uploader');
+		oUploader.addEventListener('change', function () {
+			// 获取file对象
+			var file = this.files[0];
+			// formData
+			var formData = new FormData();
+			formData.append('file', file);
+			formData.append('type', 'avatar');
+			// 发送ajax
+			axios.post('/upload/common', formData)
+				.then(function (res) {
+					if (res.status) {
+						// 显示图片
+						oPhoto.setAttribute('src', res.src);
+					} else {
+						alert(res.msg);
+					}
+				})
+				.catch(function (error) {
+					// 捕获错误
+					alert(error.response.data.msg);
+				});
+		});
+		// 保存修改
+		var oSave = document.querySelector('.save-btn');
+		var oForm = document.querySelector('.inf_form');
+
+		oSave.addEventListener('click', function () {
+			// 获取表单数据
+			var data = serialize(oForm);
+			// 附加头像
+			data.avatar = oPhoto.getAttribute('src');
+			//发送ajax
+			axios.post('/user/edit', data)
+				.then(function (res) {
+					alert(res.msg);
+				});
+		});
+	</script>
+
+
+</body>
+
+</html>
